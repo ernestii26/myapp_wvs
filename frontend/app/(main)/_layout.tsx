@@ -1,52 +1,82 @@
 import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import Feather from '@expo/vector-icons/Feather';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Entypo from '@expo/vector-icons/Entypo';
-import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import { Image } from 'react-native';
 
 export default function TabLayout() {
   const router = useRouter();
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#ffd33d',
+      tabBarActiveTintColor: '#ffd33d',
+      tabBarShowLabel: false, // 隱藏底部 tab 的文字
+      headerShown: true,     // 若要同時隱藏上方 header title
       }}
     >
       <Tabs.Screen
-        name="index"
-        options={{
-          title: '首頁',
-          tabBarIcon: ({ color, focused }) => (
-            <Entypo name="home" size={24} color="black" />
-          ),
-        }}
+      name="chat"
+      options={{
+        title: '貼文',
+        tabBarIcon: ({ color, focused }) => (
+        <Image 
+          source={focused ? require('@/assets/icons/PostTab1.png') : require('@/assets/icons/PostTab.png')} 
+          style={{ width: 24, height: 24 }} 
+        />
+        ),
+      }}
+      />
+      {/* <Tabs.Screen
+      name="library"
+      options={{
+        title: '圖書館',
+        tabBarIcon: ({ color, focused }) => (
+        <Image 
+          source={focused ? require('@/assets/icons/CafeTab1.png') : require('@/assets/icons/CafeTab.png')} 
+          style={{ width: 24, height: 24 }} 
+        />
+        ),
+      }}
+      listeners = {()=>({
+        tabPress: e =>{
+        e.preventDefault();
+        router.replace('/(library)/books');
+        },
+      })}
+      /> */}
+      <Tabs.Screen
+      name="index"
+      options={{
+        title: '貼文',
+        tabBarIcon: ({ color, focused }) => (
+        <Image 
+          source={focused ? require('@/assets/icons/CafeTab1.png') : require('@/assets/icons/CafeTab.png')} 
+          style={{ width: 24, height: 24 }} 
+        />
+        ),
+      }}
       />
       <Tabs.Screen
-        name="library"
-        options={{
-          title: '圖書館',
-          tabBarIcon: ({ color, focused }) => (
-            <SimpleLineIcons name="magnifier" size={24} color="black" />
-          ),
-        }}
-        listeners = {()=>({
-          tabPress: e =>{
-            e.preventDefault();
-            router.replace('/(library)/books');
-          },
-        })}
+      name="test"
+      options={{
+        title: '貼文',
+        tabBarIcon: ({ color, focused }) => (
+        <Image 
+          source={focused ? require('@/assets/icons/MsgTab1.png') : require('@/assets/icons/MsgTab.png')} 
+          style={{ width: 24, height: 24 }} 
+        />
+        ),
+      }}
       />
        <Tabs.Screen
-        name="analytics"
-        options={{
-          title: '自介',
-          tabBarIcon: ({ color, focused }) => (
-            <FontAwesome6 name="user-large" size={24} color="black" />
-          ),
-        }}
+      name="profile"
+      options={{
+        title: '自介',
+        tabBarIcon: ({ color, focused }) => (
+        <Image 
+          source={focused ? require('@/assets/icons/ProfileTab1.png') : require('@/assets/icons/ProfileTab.png')} 
+          style={{ width: 24, height: 24 }} 
+        />
+        ),
+      }}
       />
      
     </Tabs>

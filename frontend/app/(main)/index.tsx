@@ -10,11 +10,11 @@ export default function Index() {
       <Link href="/test" style={styles.button}>
         Go to test screen
       </Link>
+      <Link href="/profile" style={styles.button}>
+        Go to Profile screen
+      </Link>
       <Link href="/chat" style={styles.button}>
         Go to Chat screen
-      </Link>
-      <Link href="/login" style={styles.button}>
-        Go to Login screen
       </Link>
      <View style={styles.teacherContainer}>
         <Text style={styles.teacherLabel}>Teacher Icon:</Text>

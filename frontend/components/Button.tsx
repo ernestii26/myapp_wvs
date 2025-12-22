@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
 type ButtonState = 'default' | 'disabled' | 'loading' | 'hover';
 
@@ -23,26 +23,46 @@ export default function Button({
   textStyle,
   state = 'default',
   paddingHorizontal = 20,
-  paddingVertical = 16
+  paddingVertical = 16,
+  color,
+  hoverColor,
+  disabledColor
 }: ButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
 
   const getButtonStyle = () => {
     if (state === 'disabled') {
+      if (disabledColor) return { backgroundColor: disabledColor };
       return styles.buttonDisabled;
     }
     if (state === 'loading') {
+      if (color) return { backgroundColor: color };
       return styles.buttonLoading;
     }
-    if (state === 'hover') {
+    
+    const isHover = state === 'hover' || (isPressed && state === 'default');
+
+    if (isHover) {
+      if (hoverColor) {
+        return {
+          backgroundColor: hoverColor,
+          shadowColor: '#f7eeeeff',
+          shadowOffset: { width: 2, height: 4 },
+          shadowOpacity: 0.7,
+          shadowRadius: 4,
+          elevation: 3,
+        };
+      }
+      if (color) {
+        return { backgroundColor: color };
+      }
       return styles.buttonHover;
     }
     
-    // For default state, change color on press
-    if (isPressed && state === 'default') {
-      return styles.buttonHover;
+    if (color) {
+      return { backgroundColor: color };
     }
-    
+
     return styles.buttonDefault;
   };
 

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '@/constants/config';
 import { useEffect, useState } from 'react';
 
 export interface PostData {
@@ -12,10 +13,7 @@ export interface PostData {
   TeacherName?: string;
 }
 
-// Define API URL - Change this to your machine's IP if testing on physical device
-// For Android Emulator use 'http://10.0.2.2:3000/api/posts'
-// For Physical Device (Hotspot/Wi-Fi): Use your computer's IP, e.g., 'http://172.20.10.5:3000/api/posts'
-const API_URL = 'http://172.20.10.5:3000/api/posts';
+const API_URL = `${API_BASE_URL}/posts`;
 
 export const usePosts = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
