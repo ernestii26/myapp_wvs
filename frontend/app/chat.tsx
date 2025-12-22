@@ -1,8 +1,8 @@
 import { Text, View, StyleSheet } from 'react-native';
-import Test from '@/components/Test';
+import Navigation from '@/container/pages/Navigation';
 export default function LibraryScreen() {
   return (
-    <Test />
+    <Navigation />
   );
 }
 

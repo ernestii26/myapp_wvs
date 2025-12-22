@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageSourcePropType, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // 1. 定義資料介面 (Interface)
 interface ThreadPostProps {
@@ -9,6 +9,7 @@ interface ThreadPostProps {
   handle: string;        // 帳號 ID (例如: @haohan)
   time: string;          // 時間字串
   content: string;       // 貼文內容
+  images?: string[];     // 貼文圖片
   commentsCount: number; // 留言數
   TeacherName?: string; // <--- 新增這一行：老師的名字
   onPressThread?: () => void; // 點擊 "查看這個留言串" 的 callback
@@ -20,6 +21,7 @@ const ThreadPost: React.FC<ThreadPostProps> = ({
   handle,
   time,
   content,
+  images,
   commentsCount,
   TeacherName,
   onPressThread,
@@ -36,7 +38,7 @@ const ThreadPost: React.FC<ThreadPostProps> = ({
         />
         
         {/* 連接線 (flex: 1 自動填滿高度) */}
-        <View style={styles.verticalLine} />
+        {/* <View style={styles.verticalLine} /> */}
         
       </View>
 
@@ -63,6 +65,17 @@ const ThreadPost: React.FC<ThreadPostProps> = ({
         <Text style={styles.content}>
           {content}
         </Text>
+
+        {/* 圖片展示區 */}
+        {images && images.length > 0 && (
+          <View style={styles.imageContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {images.map((imgUri, index) => (
+                <Image key={index} source={{ uri: imgUri }} style={styles.postImage} />
+              ))}
+            </ScrollView>
+          </View>
+        )}
 
         {/* 互動按鈕 */}
         <View style={styles.actionRow}>
@@ -151,6 +164,16 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#14171a',
     marginBottom: 10,
+  },
+  imageContainer: {
+    marginBottom: 10,
+  },
+  postImage: {
+    width: 200,
+    height: 150,
+    borderRadius: 10,
+    marginRight: 10,
+    backgroundColor: '#f0f0f0',
   },
   actionRow: {
     flexDirection: 'row',

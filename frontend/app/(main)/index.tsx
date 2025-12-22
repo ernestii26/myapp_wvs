@@ -10,8 +10,8 @@ export default function Index() {
       <Link href="/test" style={styles.button}>
         Go to test screen
       </Link>
-      <Link href="/welcome" style={styles.button}>
-        Go to Welcome screen
+      <Link href="/chat" style={styles.button}>
+        Go to Chat screen
       </Link>
       <Link href="/login" style={styles.button}>
         Go to Login screen
