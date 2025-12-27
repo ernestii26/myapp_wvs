@@ -1,20 +1,47 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import Loading from "@/components/Loading";
+import Login from "@/components/Login";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { useSocial } from "../hooks/useSocial";
+import ChooseRole from "./ChooseRole";
 
-export default function SignIn() {
-  const handleLogin = () => {
-    // 這裡之後換成 Logto 的登入邏輯
-    console.log("Login button pressed");
-  };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome 👋</Text>
-      <Text style={styles.subtitle}>請登入以繼續</Text>
+const SignIn = () => {
+    const { isAuthenticated, client, LoadingSignIn, isInitialized, roles, loadingMessage } = useSocial();
+    const router = useRouter();
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>使用 Logto 登入</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
+    useEffect(() => {
+        if(isInitialized && isAuthenticated && roles?.length > 0){
+            console.log("前往 /")
+            router.replace('/')
+        } 
+    },[isInitialized, isAuthenticated, roles])
+
+    if(!isAuthenticated){
+        // 考慮到Login中可能有需要Load的部分，先加Load
+        // 登入介面
+        return (
+            <>
+                {(loadingMessage != undefined) && <Loading text={loadingMessage} opacity={false} />}
+                <Login client={client} signIn={async () => {await LoadingSignIn()}} />
+            </>
+        );
+    } else if (roles == undefined){
+        // 雖然在App.tsx中判斷過roles是否為undefined，但需要考慮未登入的情況，剛登入完一段時間roles可能還沒跑好，還沒跑好前不該亂做事
+        return <Loading />
+    } else if (roles?.length == 0){
+        // 確定roles load好了之後才應該跳到choose role的介面，否則可能會讓已經有role的人再選一次role
+        // 可能需要Load，先加
+        // 選角色介面
+        return (
+            <>
+                {(loadingMessage != undefined) && <Loading text={loadingMessage} />}
+                <ChooseRole />
+            </>
+        );
+    }
+
+    return null;
+};   
+
+export default SignIn;

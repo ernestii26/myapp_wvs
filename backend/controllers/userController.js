@@ -1,32 +1,52 @@
+import prisma from '../utils/prisma.js';
+
 // 用戶控制器
-const getUsers = (req, res) => {
-  res.json({ message: 'Get all users' });
+export const getUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const getUser = (req, res) => {
+export const getUser = async (req, res) => {
   const { id } = req.params;
-  res.json({ message: `Get user ${id}` });
+  try {
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const createUser = (req, res) => {
-  const { name, email } = req.body;
-  res.json({ message: 'User created', data: { name, email } });
+export const createUser = async (req, res) => {
+  const { id, username, avatar, email } = req.body;
+  try {
+    const user = await prisma.user.upsert({
+        where: { id },
+        update: { username, avatar, email },
+        create: { id, username, avatar, email }
+    });
+    res.json({ message: 'User synced', data: user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const updateUser = (req, res) => {
+export const updateUser = async (req, res) => {
   const { id } = req.params;
+  // Implement update logic
   res.json({ message: `User ${id} updated` });
 };
 
-const deleteUser = (req, res) => {
+export const deleteUser = async (req, res) => {
   const { id } = req.params;
-  res.json({ message: `User ${id} deleted` });
-};
-
-module.exports = {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser
+  try {
+      await prisma.user.delete({ where: { id } });
+      res.json({ message: `User ${id} deleted` });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 };

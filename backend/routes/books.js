@@ -1,12 +1,13 @@
-const express = require('express');
+import express from 'express';
+import * as bookController from '../controllers/bookController.js';
+import { requireAuth } from '../middleware/auth.js';
+
 const router = express.Router();
-const bookController = require('../controllers/bookController');
-const auth = require('../middleware/auth');
 
 router.get('/', bookController.getBooks);
 router.get('/:id', bookController.getBook);
-router.post('/', auth, bookController.createBook);
-router.put('/:id', auth, bookController.updateBook);
-router.delete('/:id', auth, bookController.deleteBook);
+router.post('/', requireAuth(), bookController.createBook);
+router.put('/:id', requireAuth(), bookController.updateBook);
+router.delete('/:id', requireAuth(), bookController.deleteBook);
 
-module.exports = router;
+export default router;

@@ -18,16 +18,29 @@ const API_URL = `${API_BASE_URL}/posts`;
 export const usePosts = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchPosts = async () => {
     setLoading(true);
+    setError(null);
     try {
+      console.log('Fetching posts from:', API_URL);
       const response = await fetch(API_URL);
-      if (!response.ok) throw new Error('Failed to fetch posts');
+      
+      // 添加詳細的錯誤資訊
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Failed to fetch posts. Status:', response.status, 'Response:', errorText);
+        throw new Error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
+      }
+      
       const data = await response.json();
+      console.log('Posts fetched successfully:', data);
       setPosts(data);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Error fetching posts:', errorMessage);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -78,6 +91,7 @@ export const usePosts = () => {
   return {
     posts,
     loading,
+    error,
     createPost,
     fetchPosts
   };

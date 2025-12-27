@@ -1,17 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    Image,
-    Keyboard,
-    Modal,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
+  Image,
+  Keyboard,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
 } from 'react-native';
 
 interface CreatePostModalProps {
@@ -27,6 +27,23 @@ const CreatePostModal = ({ visible, onClose, onSubmit }: CreatePostModalProps) =
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [content, setContent] = useState('');
   const [images, setImages] = useState<string[]>([]); 
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => setIsKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => setIsKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const pickImage = async () => {
     // 請求權限，
@@ -70,7 +87,13 @@ const CreatePostModal = ({ visible, onClose, onSubmit }: CreatePostModalProps) =
       visible={visible}
       onRequestClose={onClose}
     >
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback onPress={() => {
+        if (isKeyboardVisible) {
+          Keyboard.dismiss();
+        } else {
+          onClose();
+        }
+      }}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContainer}>
@@ -245,6 +268,7 @@ const styles = StyleSheet.create({
   },
   imageIconBtn: {
     marginBottom: 8,
+    alignSelf: 'flex-start',
   },
   imageList: {
     flexDirection: 'row',

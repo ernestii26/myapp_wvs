@@ -1,7 +1,7 @@
 import AddPost from '@/components/BlueButton';
 import CreatePostModal from '@/components/CreatePostModal';
 import ThreadPost from '@/components/ThreadPost';
-import { usePosts } from '@/container/hooks/Posts';
+import { usePosts } from '@/container/hooks/usePost';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 

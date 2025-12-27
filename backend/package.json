@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -19,6 +20,7 @@
     "multer": "^2.0.2"
   },
   "devDependencies": {
+    "nodemon": "^3.1.11",
     "prisma": "^5.22.0"
   }
 }

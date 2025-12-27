@@ -19,7 +19,7 @@ export default function TabLayout() {
         tabBarIcon: ({ color, focused }) => (
         <Image 
           source={focused ? require('@/assets/icons/PostTab1.png') : require('@/assets/icons/PostTab.png')} 
-          style={{ width: 24, height: 24 }} 
+          style={{ width: 36, height: 36 }} 
         />
         ),
       }}
@@ -49,7 +49,7 @@ export default function TabLayout() {
         tabBarIcon: ({ color, focused }) => (
         <Image 
           source={focused ? require('@/assets/icons/CafeTab1.png') : require('@/assets/icons/CafeTab.png')} 
-          style={{ width: 24, height: 24 }} 
+          style={{ width: 36, height: 36 }} 
         />
         ),
       }}
@@ -61,7 +61,7 @@ export default function TabLayout() {
         tabBarIcon: ({ color, focused }) => (
         <Image 
           source={focused ? require('@/assets/icons/MsgTab1.png') : require('@/assets/icons/MsgTab.png')} 
-          style={{ width: 24, height: 24 }} 
+          style={{ width: 36, height: 36 }} 
         />
         ),
       }}
@@ -73,7 +73,7 @@ export default function TabLayout() {
         tabBarIcon: ({ color, focused }) => (
         <Image 
           source={focused ? require('@/assets/icons/ProfileTab1.png') : require('@/assets/icons/ProfileTab.png')} 
-          style={{ width: 24, height: 24 }} 
+          style={{ width: 36, height: 36 }} 
         />
         ),
       }}

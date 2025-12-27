@@ -1,5 +1,5 @@
 import ThreadPost from '@/components/ThreadPost';
-import { usePosts } from '@/container/hooks/Posts';
+import { usePosts } from '@/container/hooks/usePost';
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 

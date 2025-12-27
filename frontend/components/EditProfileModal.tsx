@@ -1,4 +1,4 @@
-import { useEditProfile, UserProfileData } from '@/container/hooks/Profile';
+import { useEditProfile, UserProfileData } from '@/container/hooks/useProfile';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import {
@@ -210,6 +210,7 @@ export default function EditProfileModal({
                             color="#D9E2FF" 
                             textStyle={{ color: '#5C80B8' }}
                             style={styles.cancelButton}
+                            paddingVertical={0}
                         />
                         <Button 
                             title="儲存" 
@@ -217,6 +218,7 @@ export default function EditProfileModal({
                             color="#2B6CB0" 
                             textStyle={{ color: '#FFF' }}
                             style={styles.saveButton}
+                            paddingVertical={0}
                         />
                     </View>
                 </ScrollView>
@@ -301,11 +303,11 @@ const styles = StyleSheet.create({
     cancelButton: {
         width: '45%',
         height: 50,
-        borderRadius: 25,
+        borderRadius: 10,
     },
     saveButton: {
         width: '45%',
         height: 50,
-        borderRadius: 25,
+        borderRadius: 10,
     }
 });
