@@ -1,4 +1,4 @@
-import { API_RESOURCE, AppId, ENDPOINT } from "@/constants/Uri";
+import { API_RESOURCE, AppId, ENDPOINT } from "@/constants/config";
 import { SocialProvider } from "@/container/hooks/useSocial";
 import { LogtoProvider } from "@logto/rn";
 import { Stack } from "expo-router";

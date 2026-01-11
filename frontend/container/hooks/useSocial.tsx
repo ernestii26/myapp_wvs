@@ -1,4 +1,4 @@
-import { RedirectUri } from "@/constants/Uri";
+import { RedirectUri } from "@/constants/config";
 import { clearCache, loadFromCache, saveToCache } from "@/lib/cache";
 import { handleError } from "@/lib/sendMessage";
 import { useLogto, type IdTokenClaims } from "@logto/rn";

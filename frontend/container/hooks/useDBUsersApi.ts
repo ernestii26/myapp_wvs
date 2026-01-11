@@ -1,4 +1,4 @@
-import { API_RESOURCE, BackendURL } from "@/constants/Uri";
+import { API_RESOURCE, BackendURL } from "@/constants/config";
 import ApiError from "@/lib/ApiError";
 import { useLogto } from "@logto/rn";
 
